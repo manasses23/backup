@@ -10,7 +10,7 @@ while 1:
 	sock.send(bytes(message,'UTF-8'))
 	if (message == '#QUEHORAS'):
 		data = sock.recv(1024)
-		print ("As horas são:", repr(data))
+		print (repr(data))
 	elif (message == '#QUIT'):
 		print ("CONNECTION_WILL_BE_CLOSED")
 		break
@@ -20,13 +20,12 @@ while 1:
 	elif (message == '#LISTA'):
 		data = sock.recv(1024)
 		print ("LISTA:", repr(data))
-
-	#elif (message == '#REGISTRAR'):
-	#	nome = input('Digite o nome do cliente ou digite CTRL+C para sair \n')
-	#	byte_msg = nome.encode('utf-8')
-	#	sock.send(byte_msg)
-	#	print ("Qual o nome?")
-		
-
-
+	elif (message == '#REGISTRAR'):
+		nome = input('Digite o nome do cliente para registrar\n')
+		msg = nome.encode('utf-8')
+		sock.send(msg)
+	elif (message !="#QUEHORAS" or message !="#QUIT"or message!='#QUEDIA'or message!='#REGISTRAR'or message!='#LISTA'):
+		data = sock.recv(1024)
+		print ("ERRO:", repr(data))
+	
 sock.close()
