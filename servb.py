@@ -3,7 +3,6 @@ from datetime import datetime
 import json
 HOST = "" 
 PORT = 3000
-
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.bind((HOST, PORT))
 sock.listen(1)
@@ -30,23 +29,25 @@ while 1:
 	data = repr(raw_data)[2:-1]
 	print(data)
 	if (data == '#QUEHORAS'):
-		hora = "HORA: hora é:",str (datahora.hour)+':'+ str(datahora.minute) +':'+ str(datahora.second)
-		#byte_msg = bytes(hora('utf-8')
-		#conn.send(byte_msg)
+		hora = "HORA:",str(datahora.hour)+':'+ str(datahora.minute) +':'+ str(datahora.second)
+		hora1=str(hora)
+		conn.send(bytes(hora1,'UTF-8'))
 		print (hora)	
-
 	elif (data =='#QUIT'):
 		print ("CONNECTION_WILL_BE_CLOSED")
 		break
 	elif (data =='#REGISTRAR'):
 		print ("Digite o nome")
 	elif (data =='#QUEDIA'):
-		print ("DATA: ",str(datahora.day) +'/'+ str(datahora.month) +'/'+ str(datahora.year))
+		d= ("DATA: ",str(datahora.day) +'/'+ str(datahora.month) +'/'+ str(datahora.year))
+		dia=str(d)
+		conn.send(bytes(dia,'UTF-8'))
 	elif (data =='#QUIT'):
 		print ("CONNECTION_WILL_BE_CLOSED")
 		break	
 	elif (data =='#LISTA'):
-		print (registro)
+		reg=str(registro)
+		conn.send(bytes(reg,'UTF-8'))
 	elif (data !="#QUEHORAS" or data !="#CLOSE_CONNECTION"or data!='#QUEDIA'or data!='#REGISTRAR'or data!='#LISTA'):
 		print ("FAULT 512")
 conn.close()
